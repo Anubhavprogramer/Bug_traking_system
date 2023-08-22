@@ -1,4 +1,6 @@
 # Bug Tracking system
+import manager as manager;
+import Employee as employee
 def admain_pannel():
     print("You are in Admain pannel")
     print("1 for Manager")
@@ -20,7 +22,7 @@ def admain_pannel():
             break
         else:
             print("Invalid option")
-
+# manager
 def admain_manager_pannel():
     print("You are now in Manager Pannel You can do various things")
     print("Add Manager Account ----->1")
@@ -32,17 +34,19 @@ def admain_manager_pannel():
     while True:
         Admain_manager_choice=input("Entre the choice")
         if Admain_manager_choice=='1':
-            admain_manager_pannel()
+           manager.Add_emp_pannel()
         elif Admain_manager_choice=='2':
-            admain_Employee_pannel()
+            manager.view_all_manager()
         elif Admain_manager_choice=='3':
-            View_All_Project()
+            manager.delete_manager()
         elif Admain_manager_choice=='4':
-            View_Bug_Reports()
+            manager.update_manager_profile()
         elif Admain_manager_choice=='5':
             break
         else:
             print("Invalid option")
+
+            # Employee
 def admain_Employee_pannel():
     print("You are now in Employee Pannel You can do various things")
     print("Add Employee Account ----->1")
@@ -54,20 +58,22 @@ def admain_Employee_pannel():
     while True:
         Admain_Employee_choice=input("Entre the choice")
         if Admain_Employee_choice=='1':
-            admain_manager_pannel()
-        elif Admain_Employee_choice=='2':
+            employee.Add_emp_pannel()
+        elif Admain_employee_choice=='2':
             admain_Employee_pannel()
-        elif Admain_Employee_choice=='3':
+        elif Admain_employee_choice=='3':
             View_All_Project()
-        elif Admain_Employee_choice=='4':
+        elif Admain_employee_choice=='4':
             View_Bug_Reports()
-        elif Admain_Employee_choice=='5':
+        elif Admain_employee_choice=='5':
             break
         else:
             print("Invalid option")
+# view all project
 def View_All_Project():
     pass
 
+# view bug report
 def View_Bug_Reports():
     pass
 
