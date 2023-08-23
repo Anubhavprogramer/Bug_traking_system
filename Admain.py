@@ -22,6 +22,7 @@ def admain_pannel():
             break
         else:
             print("Invalid option")
+        input("Press Enter to continue......")
 # manager
 def admain_manager_pannel():
     print("You are now in Manager Pannel You can do various things")
@@ -45,6 +46,7 @@ def admain_manager_pannel():
             break
         else:
             print("Invalid option")
+        input("Press Enter to continue......")            
 
             # Employee
 def admain_Employee_pannel():
@@ -59,16 +61,17 @@ def admain_Employee_pannel():
         Admain_Employee_choice=input("Entre the choice")
         if Admain_Employee_choice=='1':
             employee.Add_emp_pannel()
-        elif Admain_employee_choice=='2':
-            admain_Employee_pannel()
-        elif Admain_employee_choice=='3':
-            View_All_Project()
-        elif Admain_employee_choice=='4':
-            View_Bug_Reports()
-        elif Admain_employee_choice=='5':
+        elif Admain_Employee_choice=='2':
+            employee.admain_Employee_pannel()
+        elif Admain_Employee_choice=='3':
+            employee.View_All_Project()
+        elif Admain_Employee_choice=='4':
+            employee.View_Bug_Reports()
+        elif Admain_Employee_choice=='5':
             break
         else:
             print("Invalid option")
+        input("Press Enter to continue......")
 # view all project
 def View_All_Project():
     pass
