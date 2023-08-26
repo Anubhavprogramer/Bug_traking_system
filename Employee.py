@@ -4,6 +4,7 @@ import sqlite3 as sq
 con = sq.connect("Bug_tracking_system")
 cur = con.cursor()
 
+# cur.execute("DROP TABLE IF EXISTS Employee")
 def add_employee():
     # Get employee details from user
     empCode = int(input("Enter the Employee Code: "))
@@ -122,26 +123,28 @@ def update_employee_profile():
         print('No record found for the given employee Code.')
 
 # Main menu
-while True:
-    print("\nMenu:")
-    print("1. Add Employee")
-    print("2. View All Employees")
-    print("3. Delete Employee")
-    print("4. Update Employee Profile")
-    print("5. Exit")
-    choice = input("Enter your choice: ")
+def emp_menu():
 
-    if choice == '1':
-        add_employee()
-    elif choice == '2':
-        view_all_employees()
-    elif choice == '3':
-        delete_employee()
-    elif choice == '4':
-        update_employee_profile()
-    elif choice == '5':
-        print("Exiting the program.")
-        break
-    else:
-        print("Invalid choice. Please select a valid option.")
-    input("\nPress Enter to continue...")
+    while True:
+        print("\nMenu:")
+        print("1. Add Employee")
+        print("2. View All Employees")
+        print("3. Delete Employee")
+        print("4. Update Employee Profile")
+        print("5. Exit")
+        choice = input("Enter your choice: ")
+
+        if choice == '1':
+            add_employee()
+        elif choice == '2':
+            view_all_employees()
+        elif choice == '3':
+            delete_employee()
+        elif choice == '4':
+            update_employee_profile()
+        elif choice == '5':
+            print("Exiting the program.")
+            break
+        else:
+            print("Invalid choice. Please select a valid option.")
+        input("\nPress Enter to continue...")

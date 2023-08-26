@@ -7,15 +7,15 @@ con = sq.connect("Bug_tracking_system")
 cur = con.cursor()
 
 def employee_pannel():
-    print("You are now in Manager Panel, You can do various things......")
-    print("1------Update Profile")
-    print("2------Add Bug's Report")
-    print("3------View Bug's")
-    print("4------Bug Detail’s")
-    print("5------Update Bug status")
-    print("6------EXIT")
 
     while True:
+        print("1------Update Profile")
+        print("You are now in Manager Panel, You can do various things......")
+        print("2------Add Bug's Report")
+        print("3------View Bug's")
+        print("4------Bug Detail’s")
+        print("5------Update Bug status")
+        print("6------EXIT")
         try:
             manager_choice = int(input("Enter the Choice: "))
 

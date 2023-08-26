@@ -4,18 +4,21 @@ import sqlite3 as sq
 # creating a database
 con = sq.connect("Bug_tracking_system")
 cur = con.cursor()
-cur.execute("create table if not exists Employee (empCode int primary key, name varchar(30) not null, email varchar(40) not null, emppassword varchar(20) not null, DOB varchar(20) not null,mobileNo bigint not null, role varchar(20) not null)")
+
+# cur.execute("DROP TABLE IF EXISTS manager")
+cur.execute("create table if not exists manager (empCode int primary key, name varchar(30) not null, email varchar(40) not null, emppassword varchar(20) not null,gender varchar(10), DOB varchar(20) not null,mobileNo bigint not null, role varchar(20) not null)")
 con.commit()
+
 def Add_emp_pannel():
-    empCode = int(input("Enter the Employee Code: "))
-    empName = input("Enter the Employee Name: ")
+    empCode = int(input("Enter the Manager Code: "))
+    empName = input("Enter the Manager Name: ")
     empemail = input("Enter the Email: ")
     emppassword = input("Enter the password: ")
     gender = input("Enter the gender: ")
     DOB = input("Enter the Date of Birth: ")
     mobileNO = int(input("Enter the mobile number: "))
     role = input("Enter the Role: ")
-    qry = "INSERT INTO Employee VALUES (%d, '%s', '%s', '%s', '%s', '%s', %d, '%s')" % (
+    qry = "INSERT INTO manager VALUES (%d, '%s', '%s', '%s', '%s', '%s', %d, '%s')" % (
         empCode, empName, empemail, emppassword, gender, DOB, mobileNO, role)
     cur.execute(qry)
     con.commit()
@@ -26,9 +29,9 @@ def Add_emp_pannel():
     input("\n\nPress Enter to continue")
 # view manager
 def view_all_manager():
-    way = int(input("Enter the Employee Code to view the details or enter 0 to get all the managers: "))
+    way = int(input("Enter the manager Code to view the details or enter 0 to get all the managers: "))
     if way == 0:
-        qry = "SELECT * FROM Employee WHERE role = 'manager'"
+        qry = "SELECT * FROM manager WHERE role = 'manager'"
         cur.execute(qry)
         result = cur.fetchall()
         if len(result) > 0:
@@ -42,7 +45,7 @@ def view_all_manager():
         else:
             print("No records found for managers.")
     else:
-        qry = "SELECT * FROM Employee WHERE empCode = ?"
+        qry = "SELECT * FROM manager WHERE empCode = ?"
         cur.execute(qry, (way,))
         row = cur.fetchone()
         if row:
@@ -59,7 +62,7 @@ def view_all_manager():
 # delete manager
 def delete_manager():
     id = input("Enter the Manager Code to be deleted: ")
-    cur.execute("delete from Employee where empcode = ?", (id,))
+    cur.execute("delete from manager where empcode = ?", (id,))
     con.commit()
     if cur.rowcount > 0:
         print("Record deleted.....")
@@ -69,7 +72,7 @@ def delete_manager():
 # update manager
 def update_manager_profile():
     id = int(input("Enter the Manager Code: "))
-    cur.execute("SELECT * FROM Employee WHERE empCode = ?", (id,))
+    cur.execute("SELECT * FROM manager WHERE empCode = ?", (id,))
     result = cur.fetchone()
     if result:
         while True:
@@ -85,7 +88,7 @@ def update_manager_profile():
             choice = int(input("Enter the choice: "))
             if choice == 1:
                 name = input("Enter the Name: ")
-                cur.execute("UPDATE Employee SET name = ? WHERE empCode = ?", (name, id))
+                cur.execute("UPDATE manager SET name = ? WHERE empCode = ?", (name, id))
                 con.commit()
                 if cur.rowcount > 0:
                     print("Name updated Successfully....")
@@ -93,7 +96,7 @@ def update_manager_profile():
                     print("Error in updating the Name...")
             elif choice == 2:
                 email = input("Enter the Email: ")
-                cur.execute("UPDATE Employee SET email = ? WHERE empCode = ?", (email, id))
+                cur.execute("UPDATE manager SET email = ? WHERE empCode = ?", (email, id))
                 con.commit()
                 if cur.rowcount > 0:
                     print("Email updated Successfully....")
@@ -101,7 +104,7 @@ def update_manager_profile():
                     print("Error in updating the Email...")
             elif choice == 3:
                 dob = input("Enter the DOB: ")
-                cur.execute("UPDATE Employee SET DOB = ? WHERE empCode = ?", (dob, id))
+                cur.execute("UPDATE manager SET DOB = ? WHERE empCode = ?", (dob, id))
                 con.commit()
                 if cur.rowcount > 0:
                     print("DOB updated Successfully....")
@@ -109,7 +112,7 @@ def update_manager_profile():
                     print("Error in updating the DOB...")
             elif choice == 4:
                 mobileNo = input("Enter the Mobile number: ")
-                cur.execute("UPDATE Employee SET mobileNo = ? WHERE empCode = ?", (mobileNo, id))
+                cur.execute("UPDATE manager SET mobileNo = ? WHERE empCode = ?", (mobileNo, id))
                 con.commit()
                 if cur.rowcount > 0:
                     print("Mobile number updated Successfully....")
@@ -117,7 +120,7 @@ def update_manager_profile():
                     print("Error in updating the Mobile number...")
             elif choice == 5:
                 password = input("Enter the password: ")
-                cur.execute("UPDATE Employee SET emppassword = ? WHERE empCode = ?", (password, id))
+                cur.execute("UPDATE manager SET emppassword = ? WHERE empCode = ?", (password, id))
                 con.commit()
                 if cur.rowcount > 0:
                     print("Password updated Successfully....")
@@ -125,7 +128,7 @@ def update_manager_profile():
                     print("Error in updating the Password...")
             elif choice == 6:
                 gender = input("Enter the gender: ")
-                cur.execute("UPDATE Employee SET gender = ? WHERE empCode = ?", (gender, id))
+                cur.execute("UPDATE manager SET gender = ? WHERE empCode = ?", (gender, id))
                 con.commit()
                 if cur.rowcount > 0:
                     print("Gender updated Successfully....")
@@ -133,7 +136,7 @@ def update_manager_profile():
                     print("Error in updating the Gender...")
             elif choice == 7:
                 role = input("Enter the role: ")
-                cur.execute("UPDATE Employee SET role = ? WHERE empCode = ?", (role, id))
+                cur.execute("UPDATE manager SET role = ? WHERE empCode = ?", (role, id))
                 con.commit()
                 if cur.rowcount > 0:
                     print("Role updated Successfully....")
@@ -147,7 +150,7 @@ def update_manager_profile():
                 password = input("Enter the password: ")
                 gender = input("Enter the gender: ")
                 role = input("Enter the role: ")
-                cur.execute("UPDATE Employee SET name = ?, email = ?, DOB = ?, mobileNo = ?, emppassword = ?, gender = ?, role = ? WHERE empCode = ?", (name, email, dob, mobileNo, password, gender, role, id))
+                cur.execute("UPDATE manager SET name = ?, email = ?, DOB = ?, mobileNo = ?, emppassword = ?, gender = ?, role = ? WHERE empCode = ?", (name, email, dob, mobileNo, password, gender, role, id))
                 con.commit()
                 if cur.rowcount > 0:
                     print("Record updated Successfully....")

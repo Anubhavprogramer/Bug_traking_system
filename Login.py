@@ -2,25 +2,27 @@ import sys
 import sqlite3 as sq
 import Manager_pannel as manager_pannel
 import Employee_pannel as employee_pannel
+# from Admain import admain_pannel
 import Admain as ad
-
+5
 # Creating a database connection and cursor
 print("-------BUG TRACKING SYSTEM-------")
 con = sq.connect("Bug_tracking_system")
 cur = con.cursor()
-
 # Creating the Employee table if it doesn't exist
-cur.execute("CREATE TABLE IF NOT EXISTS Employee (empCode INTEGER PRIMARY KEY, name VARCHAR(30) NOT NULL, email VARCHAR(40) NOT NULL, emppassword VARCHAR(20) NOT NULL, DOB VARCHAR(20) NOT NULL, mobileNo BIGINT NOT NULL, role VARCHAR(20) NOT NULL)")
+# cur.execute("DROP TABLE IF EXISTS Employee")
+
+cur.execute("CREATE TABLE IF NOT EXISTS Employee (empCode INTEGER PRIMARY KEY, name VARCHAR(30) NOT NULL, email VARCHAR(40) NOT NULL, emppassword VARCHAR(20) NOT NULL, gender  VARCHAR(10) not null, DOB VARCHAR(20) NOT NULL, mobileNo BIGINT NOT NULL, role VARCHAR(20) NOT NULL)")
 con.commit()
 
 # A dictionary for user database (you can replace this with a real database)
 user_database = {
-    'Admin': '123',
+    'admin': '123',
 }
 
 # Function to perform user login
 def login():
-    username = input("Enter your Employee Code: ")
+    username = input("Enter your Employee user name: ")
     password = input("Enter your password: ")
 
     qry = "SELECT * FROM Employee WHERE empCode = ?"
@@ -31,15 +33,15 @@ def login():
         ad.admain_pannel()
     elif row is not None and row[3] == password:
         role = row[6]
-        if role == "Manager":
+        if role.lower() == "manager":
             manager_pannel.manager_panel()
-        elif role == "Employee":
+        elif role.lower() == "employee":
             employee_pannel.employee_pannel()
-        
-        elif role == "admain":
+        elif role.lower() == "admain":
             ad.admain_pannel()
         else:
             print("Invalid role.")
+
     elif username in user_database and user_database[username] == password:
         print("Login successful!")
         ad.admain_pannel()
